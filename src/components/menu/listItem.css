@@ -1,0 +1,11 @@
+li.listitem {
+  border: 1px solid black;
+  width: 20px;
+  background: #555;
+  display: inline-block;
+}
+
+li p {
+  line-height: 0px;
+  text-align: center;
+}
