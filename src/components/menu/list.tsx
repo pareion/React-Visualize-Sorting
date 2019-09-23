@@ -8,10 +8,9 @@ interface IList {
 
 const List: React.FC<IList> = props => {
   const [state, setState] = useState(props.numbers);
-  console.log("list");
+
   useEffect(() => {
     setState(props.numbers);
-    console.log("list");
   }, [props.numbers]);
   return (
     <>
