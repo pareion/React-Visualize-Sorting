@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Label } from "office-ui-fabric-react";
+import { Button, Label, Slider } from "office-ui-fabric-react";
 import "./menu.css";
 import List from "./list";
 
@@ -25,6 +25,8 @@ const Menu: React.FC = () => {
       }
     }
   }
+  const [value, setValue] = React.useState<number>(100);
+
   function startAlgorithm(algorithm: string) {
     if (!started) {
       setStarted(true);
@@ -86,6 +88,20 @@ const Menu: React.FC = () => {
       >
         Restart
       </Button>
+      <Slider
+        min={0}
+        max={70}
+        value={value}
+        aria-labelledby="continuous-slider"
+        onChange={newValue => {
+          setValue(newValue);
+          setList({
+            numbers: Array.from({ length: newValue }, () =>
+              Math.floor(Math.random() * 40)
+            )
+          });
+        }}
+      />
       <Label>Algorithm: {algorithm}</Label>
       <List numbers={list.numbers} />
     </div>
