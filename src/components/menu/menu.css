@@ -17,3 +17,7 @@ div.scrollmenu button {
 div.scrollmenu button:hover {
   background-color: #777;
 }
+
+div.scrollmenu label {
+  color: #777;
+}
