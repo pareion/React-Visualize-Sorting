@@ -6,9 +6,13 @@ import List from "./list";
 const Menu: React.FC = () => {
   const [started, setStarted] = useState(false);
   const [interval, setInter] = useState();
+  const [listLength, setListLength] = useState(35);
+  const [speed, setSpeed] = useState(250);
 
   const [list, setList] = useState({
-    numbers: Array.from({ length: 40 }, () => Math.floor(Math.random() * 40))
+    numbers: Array.from({ length: listLength }, () =>
+      Math.floor(Math.random() * 40)
+    )
   });
 
   const [algorithm, setAlgorithm] = useState("None");
@@ -25,14 +29,13 @@ const Menu: React.FC = () => {
       }
     }
   }
-  const [value, setValue] = React.useState<number>(100);
 
   function startAlgorithm(algorithm: string) {
     if (!started) {
       setStarted(true);
       switch (algorithm) {
         case "Bubblesort": {
-          setInter(setInterval(bubblesort, 100, list));
+          setInter(setInterval(bubblesort, 500 - speed, list));
           break;
         }
         case "Quicksort": {
@@ -79,7 +82,7 @@ const Menu: React.FC = () => {
         onClick={() => {
           clearTimeout(interval);
           setList({
-            numbers: Array.from({ length: 40 }, () =>
+            numbers: Array.from({ length: listLength }, () =>
               Math.floor(Math.random() * 40)
             )
           });
@@ -88,20 +91,42 @@ const Menu: React.FC = () => {
       >
         Restart
       </Button>
-      <Slider
-        min={0}
-        max={70}
-        value={value}
-        aria-labelledby="continuous-slider"
-        onChange={newValue => {
-          setValue(newValue);
-          setList({
-            numbers: Array.from({ length: newValue }, () =>
-              Math.floor(Math.random() * 40)
-            )
-          });
-        }}
-      />
+      <div style={{ width: 300 }}>
+        <Slider
+          label="Elementer"
+          min={20}
+          max={50}
+          value={listLength}
+          aria-labelledby="continuous-slider"
+          disabled={started}
+          onChange={newValue => {
+            setListLength(newValue);
+            setList({
+              numbers: Array.from({ length: newValue }, () =>
+                Math.floor(Math.random() * 40)
+              )
+            });
+          }}
+        />
+      </div>
+      <div style={{ width: 300 }}>
+        <Slider
+          label="Hastighed"
+          min={0}
+          max={500}
+          valueFormat={value => `${value / 10}`}
+          value={speed}
+          aria-labelledby="continuous-slider"
+          onChange={newValue => {
+            setSpeed(newValue);
+            if (started) {
+              clearInterval(interval);
+              setInter(setInterval(bubblesort, 500 - speed, list));
+            }
+          }}
+          step={10}
+        />
+      </div>
       <Label>Algorithm: {algorithm}</Label>
       <List numbers={list.numbers} />
     </div>
