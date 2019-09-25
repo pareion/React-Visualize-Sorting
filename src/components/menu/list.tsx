@@ -17,7 +17,7 @@ const List: React.FC<IList> = props => {
     <>
       {state.map((item, index) => (
         <ListItem
-          elementsInList={windowWidth / props.numbers.length - 3}
+          elementsInList={windowWidth / props.numbers.length}
           key={index}
           number={item}
         />
