@@ -2,6 +2,7 @@ import React from "react";
 import "./listItem.css";
 
 interface IListItem {
+  elementsInList: number;
   number: number;
 }
 
@@ -11,7 +12,8 @@ const ListItem: React.FC<IListItem> = props => {
       <li
         className="listitem"
         style={{
-          height: setStyle(props.number)
+          height: setStyle(props.number),
+          width: props.elementsInList
         }}
       >
         <p>{props.number}</p>

@@ -8,17 +8,20 @@ interface IList {
 
 const List: React.FC<IList> = props => {
   const [state, setState] = useState(props.numbers);
+  let windowWidth = window.screen.width;
 
   useEffect(() => {
     setState(props.numbers);
   }, [props.numbers]);
   return (
     <>
-      <ul>
-        {state.map((item, index) => (
-          <ListItem key={index} number={item} />
-        ))}
-      </ul>
+      {state.map((item, index) => (
+        <ListItem
+          elementsInList={windowWidth / props.numbers.length - 3}
+          key={index}
+          number={item}
+        />
+      ))}
     </>
   );
 };

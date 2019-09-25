@@ -8,13 +8,11 @@ const Menu: React.FC = () => {
   const [interval, setInter] = useState();
   const [listLength, setListLength] = useState(35);
   const [speed, setSpeed] = useState(250);
-
   const [list, setList] = useState({
     numbers: Array.from({ length: listLength }, () =>
       Math.floor(Math.random() * 40)
     )
   });
-
   const [algorithm, setAlgorithm] = useState("None");
 
   function bubblesort() {
@@ -95,7 +93,7 @@ const Menu: React.FC = () => {
         <Slider
           label="Elementer"
           min={20}
-          max={50}
+          max={90}
           value={listLength}
           aria-labelledby="continuous-slider"
           disabled={started}
